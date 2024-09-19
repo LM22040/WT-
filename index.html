@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Translate+</title>
+    <style>
+        /* CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .screen {
+            text-align: center;
+        }
+
+        .language-selector {
+            margin: 20px 0;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .toggle-container {
+            text-align: left;
+        }
+
+        .toggle-container label {
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .toggle-container input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        p:last-of-type {
+            font-size: 12px;
+            color: #888;
+        }
+
+        button#openWhatsApp {
+            background-color: #25D366;
+        }
+
+        button#openWhatsApp:hover {
+            background-color: #1DAE58;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Pantalla 1: Selección de Idioma -->
+    <div id="screen1" class="screen">
+        <h2>Selecciona tu Idioma</h2>
+        <div class="language-selector">
+            <select id="languageSelect">
+                <option value="es">🇪🇸 Español</option>
+                <option value="en">🇺🇸 Inglés</option>
+                <option value="fr">🇫🇷 Francés</option>
+                <option value="de">🇩🇪 Alemán</option>
+            </select>
+            <p>Selecciona el idioma que hablas para comenzar a traducir.</p>
+        </div>
+        <button onclick="goToScreen2()">Guardar</button>
+    </div>
+
+    <!-- Pantalla 2: Configuración de Permisos -->
+    <div id="screen2" class="screen hidden">
+        <h2>Configuración de Permisos</h2>
+        <p>Para que la aplicación funcione correctamente, necesitamos acceder a ciertos permisos.</p>
+        <div class="toggle-container">
+            <label>
+                <input type="checkbox" id="micPermission"> Acceso al Micrófono
+            </label>
+            <label>
+                <input type="checkbox" id="storagePermission"> Acceso al Almacenamiento
+            </label>
+            <label>
+                <input type="checkbox" id="notificationPermission"> Permitir Notificaciones
+            </label>
+        </div>
+        <button onclick="goToScreen3()">Conceder Permisos</button>
+    </div>
+
+    <!-- Pantalla 3: Activación de la Aplicación -->
+    <div id="screen3" class="screen hidden">
+        <h2>Activación de la Aplicación</h2>
+        <p>La configuración ha sido exitosa. Presiona el botón a continuación para abrir WhatsApp con la traducción habilitada.</p>
+        <button id="openWhatsApp" onclick="openWhatsApp()">Abrir WhatsApp</button>
+        <p>Se abrirá WhatsApp con la traducción habilitada.</p>
+    </div>
+</div>
+
+<script>
+    // JavaScript
+    function goToScreen2() {
+        // Ocultar pantalla 1 y mostrar pantalla 2
+        document.getElementById('screen1').classList.add('hidden');
+        document.getElementById('screen2').classList.remove('hidden');
+    }
+
+    function goToScreen3() {
+        // Verificar que los permisos estén seleccionados
+        const mic = document.getElementById('micPermission').checked;
+        const storage = document.getElementById('storagePermission').checked;
+        const notification = document.getElementById('notificationPermission').checked;
+
+        if (mic && storage && notification) {
+            // Ocultar pantalla 2 y mostrar pantalla 3
+            document.getElementById('screen2').classList.add('hidden');
+            document.getElementById('screen3').classList.remove('hidden');
+        } else {
+            alert("Por favor, concede todos los permisos para continuar.");
+        }
+    }
+
+    function openWhatsApp() {
+        // Abrir WhatsApp (en un entorno real, esto sería una interacción con una app nativa)
+        alert("Abriendo WhatsApp con traducción habilitada...");
+        window.location.href = "whatsapp://send";  // Esto simula abrir WhatsApp
+    }
+</script>
+
+</body>
+</html>
